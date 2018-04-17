@@ -1,0 +1,4 @@
+class Destinations::TravelDestinations
+
+
+end
