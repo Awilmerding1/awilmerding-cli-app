@@ -4,6 +4,9 @@ class Destinations::CLI
     Destinations::TravelDestinations.scrape_top_ten
     intro
     Destinations::TravelDestinations.scrape_top_countries
+    Destinations::TravelDestinations.scrape_top_cities
+    Destinations::TravelDestinations.scrape_top_regions
+    Destinations::TravelDestinations.scrape_top_value
   end
 
   def intro

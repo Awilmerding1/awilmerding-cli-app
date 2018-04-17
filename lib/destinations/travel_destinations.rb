@@ -21,6 +21,29 @@ class Destinations::TravelDestinations
   end
 end
 
+def self.scrape_top_cities
+  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/cities"))
+  counter = 1
+  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
+    puts "#{index+1}. #{lists.text}"
+end
+end
+
+def self.scrape_top_regions
+  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/regions"))
+  counter = 1
+  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
+    puts "#{index+1}. #{lists.text}"
+end
+end
+
+def self.scrape_top_value
+  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/value"))
+  counter = 1
+  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
+    puts "#{index+1}. #{lists.text}"
+end
+end
 
 
 
