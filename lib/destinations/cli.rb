@@ -6,10 +6,6 @@ class Destinations::CLI
     Destinations::TravelDestinations.scrape_top_ten
     intro
     main_menu_select
-    # Destinations::TravelDestinations.scrape_top_countries
-    # Destinations::TravelDestinations.scrape_top_cities
-    # Destinations::TravelDestinations.scrape_top_regions
-    # Destinations::TravelDestinations.scrape_top_value
   end
 
   def intro
@@ -18,20 +14,44 @@ class Destinations::CLI
   end
 
   def main_menu_select
-    input = gets.chomp.downcase
+    input = nil
+    while input != "exit"
+      input = gets.chomp.downcase
     if input.to_i == 1 || input.include?("countries")
-    Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/countries")
-  elsif input.to_i == 2 || input.include?("cities")
-    Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/cities")
-  elsif input.to_i == 3 || input.include?("regions")
-    Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/regions")
-  elsif input.to_i == 4 || input.include?("value") || input.include?("best")
-    Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/value")
+      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/countries")
+      puts "If you would like to read about one of these destinations, please enter it's number on the list."
+      self.destination_more_info("https://www.lonelyplanet.com/best-in-travel/countries")
+    end
+    if input.to_i == 2 || input.include?("cities")
+      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/cities")
+      puts "If you would like to read about one of these destinations, please enter it's number on the list."
+      return
+    end
+    if input.to_i == 3 || input.include?("regions")
+      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/regions")
+      puts "If you would like to read about one of these destinations, please enter it's number on the list."
+      return
+    end
+    if input.to_i == 4 || input.include?("value") || input.include?("best")
+      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/value")
+      puts "If you would like to read about one of these destinations, please enter it's number on the list."
+      return
+    end
+    end
+  end
 
-
-    # if input.to_i > 4 || input.to_i < 1
-    #   puts "Please enter a number on the list."
+  def destination_more_info(input_url)
+    more_input = nil
+    while more_input != "exit"
+      more_input = gets.chomp.downcase
+      if more_input.to_i == 1
+        Destinations::TravelDestinations.scrape_for_description(input_url, more_input.to_i)
+      end
+      if more_input.to_i == 2
+        Destinations::TravelDestinations.scrape_for_description(input_url, more_input.to_i)
+      end
   end
 end
+
 
 end
