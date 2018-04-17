@@ -28,4 +28,13 @@ def self.scrape_for_description(input_url, more_input)
   end
 end
 
+def self.scrape_for_link(input_url, more_input)
+  link = Nokogiri::HTML(open(input_url))
+  link.css("##{more_input} .marketing-article__content a").each do |more|
+    puts "Copy and paste the link below into your browser to read more about this destination."
+    puts more["href"]
+  end
+end
+
+
 end
