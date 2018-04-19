@@ -17,29 +17,25 @@ class Destinations::CLI
     self.main_menu_select
   end
 
+
   def main_menu_select
       input = gets.chomp.downcase
       link = nil
     if input.to_i == 1 || input.include?("countries")
       Destinations::TravelDestinations.scrape_top_countries
       link = "https://www.lonelyplanet.com/best-in-travel/countries"
-    end
-    if input.to_i == 2 || input.include?("cities")
+    elsif input.to_i == 2 || input.include?("cities")
       Destinations::TravelDestinations.scrape_top_cities
       link = "https://www.lonelyplanet.com/best-in-travel/cities"
-    end
-    if input.to_i == 3 || input.include?("regions")
+    elsif input.to_i == 3 || input.include?("regions")
       Destinations::TravelDestinations.scrape_top_regions
       link = "https://www.lonelyplanet.com/best-in-travel/regions"
-    end
-    if input.to_i == 4 || input.include?("value") || input.include?("best")
+    elsif input.to_i == 4 || input.include?("value") || input.include?("best")
       Destinations::TravelDestinations.scrape_top_value
       link = "https://www.lonelyplanet.com/best-in-travel/value"
-    end
-    if input.to_i == 'exit'
-      exit!
-    end
-    if input.to_i == 'main menu'
+    elsif input.to_i == 'exit'
+      self.exit_program
+    elsif input.to_i == 'main menu'
       self.main_menu
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
