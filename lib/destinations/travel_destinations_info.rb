@@ -1,5 +1,15 @@
 require 'open-uri'
-class Destinations::TravelDestinationsInfo
+class Destinations::TravelDestinations
+
+  attr_accessor :input_url, :more_input, :link, :summary, :name
+
+  def initialize(name, input_url, link, summary)
+    @input_url = input_url
+    @link = link
+    @name = name
+    @summary = summary
+  end
+
 
   def self.scrape_for_description(input_url, more_input)
     description = Nokogiri::HTML(open(input_url))

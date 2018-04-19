@@ -1,5 +1,5 @@
 require 'open-uri'
-class Destinations::TravelDestinations
+class Destinations::TravelDestinationsScraper
 
   def self.scrape_webpage
     Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel"))
