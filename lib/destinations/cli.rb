@@ -22,25 +22,25 @@ class Destinations::CLI
     while input != "exit" && input != "main menu"
       input = gets.chomp.downcase
     if input.to_i == 1 || input.include?("countries")
-      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/countries")
+      Destinations::TravelDestinations.scrape_top_countries
       puts "If you would like to read about one of these destinations, please enter it's number on the list."
       puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
       self.destination_more_info("https://www.lonelyplanet.com/best-in-travel/countries")
     end
     if input.to_i == 2 || input.include?("cities")
-      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/cities")
+      Destinations::TravelDestinations.scrape_top_cities
       puts "If you would like to read about one of these destinations, please enter it's number on the list."
       puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
       self.destination_more_info("https://www.lonelyplanet.com/best-in-travel/cities")
     end
     if input.to_i == 3 || input.include?("regions")
-      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/regions")
+      Destinations::TravelDestinations.scrape_top_regions
       puts "If you would like to read about one of these destinations, please enter it's number on the list."
       puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
       self.destination_more_info("https://www.lonelyplanet.com/best-in-travel/regions")
     end
     if input.to_i == 4 || input.include?("value") || input.include?("best")
-      Destinations::TravelDestinations.scrape_top_lists("https://www.lonelyplanet.com/best-in-travel/value")
+      Destinations::TravelDestinations.scrape_top_value
       puts "If you would like to read about one of these destinations, please enter it's number on the list."
       puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
       self.destination_more_info("https://www.lonelyplanet.com/best-in-travel/value")
