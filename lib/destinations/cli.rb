@@ -17,7 +17,6 @@ class Destinations::CLI
     self.main_menu_select
   end
 
-
   def main_menu_select
       input = gets.chomp.downcase
       link = nil
@@ -33,9 +32,9 @@ class Destinations::CLI
     elsif input.to_i == 4 || input.include?("value") || input.include?("best")
       Destinations::TravelDestinations.scrape_top_value
       link = "https://www.lonelyplanet.com/best-in-travel/value"
-    elsif input.to_i == 'exit'
-      self.exit_program
-    elsif input.to_i == 'main menu'
+    elsif input == 'exit'
+      abort("Bye!")
+    elsif input == 'main menu'
       self.main_menu
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
