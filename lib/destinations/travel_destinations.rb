@@ -1,69 +1,39 @@
 require 'open-uri'
-class Destinations::TravelDestinationsLists
+class Destinations::TopList
 
-  def make_destination
-    self.scrape_top_ten
+  attr_accessor :name, :url, :destinations
+
+  @@all_destinations = []
+
+  def initialize(name, url)
+    @name = name
+    @url = url
+    @destinations = []
   end
 
-  def self.scrape_webpage
-    Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/"))
+  def add_destination(destination)
+    self.destinations << destination
   end
 
-  def self.scrape_top_ten
-     lists = self.scrape_webpage
-     counter = 1
-     lists.css("a.js-page-navigation-spot span").each_with_index do |list, index|
-       puts "#{index+1}. #{list.text}"
-     end
+  def destinations
+    @destinations
   end
 
-
-def self.scrape_top_countries
-  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
-  counter = 1
-  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
-    puts "#{index+1}. #{lists.text}"
-end
-end
-
-def self.scrape_top_cities
-  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/cities"))
-  counter = 1
-  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
-    puts "#{index+1}. #{lists.text}"
-end
-end
-
-def self.scrape_top_regions
-  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/regions"))
-  counter = 1
-  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
-    puts "#{index+1}. #{lists.text}"
-end
-end
-
-def self.scrape_top_value
-  list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/value"))
-  counter = 1
-  list.css("a.js-action-scroll-to span").each_with_index do |lists, index|
-    puts "#{index+1}. #{lists.text}"
-end
-end
-
-def self.scrape_for_description(input_url, more_input)
-  description = Nokogiri::HTML(open(input_url))
-  description.css("##{more_input} .marketing-article__content").each do |pgh|
-    puts pgh.text
+  def self.scrape_countries
+    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
+    list = self.new(doc.css("a h2").text, "https://www.lonelyplanet.com/best-in-travel/countries")
   end
-end
 
-def self.scrape_for_link(input_url, more_input)
-  link = Nokogiri::HTML(open(input_url))
-  link.css("##{more_input} .marketing-article__content a").each do |more|
-    puts "Copy and paste the link below into your browser to read more about this destination."
-    puts more["href"]
+  def self.scrape_cities
+    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/cities"))
+    list = self.new(doc.css("a h2").text, "https://www.lonelyplanet.com/best-in-travel/cities")
   end
-end
+
+  def self.scrape_regions
+    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/regions"))
+    list = self.new(doc.css("a h2").text, "https://www.lonelyplanet.com/best-in-travel/regions")
+  end
+
 
 
 end
