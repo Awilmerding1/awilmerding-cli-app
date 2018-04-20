@@ -1,31 +1,19 @@
 require 'open-uri'
 class Destinations::TravelDestinations
 
-  attr_accessor :input_url, :more_input, :link, :summary, :name
+  attr_accessor :url, :summary, :name, :link
 
-  def initialize(name, input_url, link, summary)
-    @input_url = input_url
-    @link = link
+  @@all = []
+
+  def initialize(name, url, summary, link)
+    @url = url
     @name = name
     @summary = summary
+    @link = link
+    @@all << self
   end
 
-
-  def self.scrape_for_description(input_url, more_input)
-    description = Nokogiri::HTML(open(input_url))
-    description.css("##{more_input} .marketing-article__content").each do |pgh|
-      puts pgh.text
-    end
-  end
-
-  def self.scrape_for_link(input_url, more_input)
-    link = Nokogiri::HTML(open(input_url))
-    link.css("##{more_input} .marketing-article__content a").each do |more|
-      puts "Copy and paste the link below into your browser to read more about this destination."
-      puts more["href"]
-    end
-  end
-
+  
 
 
 end
