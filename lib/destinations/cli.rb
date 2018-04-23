@@ -6,13 +6,13 @@ class Destinations::CLI
   end
 
   def intro
-    Destinations::TravelDestinations.scrape_top_ten
+    Destinations::TopList.scrape_list
     puts "\nWelcome! Please select one of the lists above by number or keyword.\n\n"
     puts "Type 'exit' to exit the program at anytime. Type 'main menu' to return to the list above at anytime."
   end
 
   def main_menu
-    Destinations::TravelDestinations.scrape_top_ten
+    Destinations::TravelDestinations.scrape_list
     puts "\nPlease select a list."
     self.main_menu_select
   end
