@@ -3,6 +3,7 @@ class Destinations::TravelDestinations
 
   attr_accessor :name, :summary, :list_number, :link_url, :list
 
+  @@all = []
   @@all_countries = []
   @@all_cities = []
   @@all_regions = []
@@ -12,6 +13,7 @@ class Destinations::TravelDestinations
     @name = name
     @list_number = list_number
     @list = list
+    @@all << self
   end
 
   def summary
@@ -22,14 +24,20 @@ class Destinations::TravelDestinations
     self.link_url ||= doc.css("##{self.list_number} .marketing-article__content a").attribute("href").text
   end
 
-  def self.all
-    @@all
+  def self.find_country_destination(input.to_i)
+      self.all_countries[input.to_i + 1]
   end
 
-  def self.find_destination_from_list(list)
-    self.all.map do |destinations|
-      if destinations.list == list
+  def self.find_city_destination(input.to_i)
+    self.all_cities[input.to_i + 1]
+  end
 
+  def self.find_region_destination(input.to_i)
+    self.all_regions[input.to_i + 1]
+  end
+
+  def self.find_value_destination(input.to_i)
+    self.all_value[input.to_i + 1]
   end
 
 

@@ -8,27 +8,38 @@ class Destinations::TopList
   end
 
   def self.scrape_countries
-    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
-    destination = Destinations::TravelDestinations.new(doc.css("a.js-action-scroll-to span").text, doc.css("a").attribute("href").text, doc.css(".masthead__sub_title").text)
-    Destinations::TravelDestinations.all_countries << destination
+    Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries"))
   end
 
   def self.scrape_cities
-    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/cities"))
-    destination = Destinations::TravelDestinations.new(doc.css("a.js-action-scroll-to span").text, doc.css("a").attribute("href").text, doc.css(".masthead__sub_title").text)
-    Destinations::TravelDestinations.all_cities << destination
+     Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/cities"))
   end
 
   def self.scrape_regions
-    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/regions"))
-    destination = Destinations::TravelDestinations.new(doc.css("a.js-action-scroll-to span").text, doc.css("a").attribute("href").text, doc.css(".masthead__sub_title").text)
-    Destinations::TravelDestinations.all_regions << destination
+    Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/regions"))
   end
 
   def self.scrape_value
-    doc = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/value"))
-    destination = Destinations::TravelDestinations.new(doc.css("a.js-action-scroll-to span").text, doc.css("a").attribute("href").text, doc.css(".masthead__sub_title").text)
-    Destinations::TravelDestinations.all_value << destination
+    Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/value"))
+  end
+
+  def self.make_all_destinations
+    self.scrape_countries.each do |destination|
+      Destinations::TravelDestinations.new(destination.css("a.js-action-scroll-to span").text, destination.css("a").attribute("href").text, destination.css(".masthead__sub_title").text)
+      Destinations::TravelDestinations.all_countries << self
+    end
+    self.scrape_cities.each do |destination|
+      Destinations::TravelDestinations.new(destination.css("a.js-action-scroll-to span").text, destination.css("a").attribute("href").text, destination.css(".masthead__sub_title").text)
+      Destinations::TravelDestinations.all_cities << self
+    end
+    self.scrape_regions.each do |destination|
+      Destinations::TravelDestinations.new(destination.css("a.js-action-scroll-to span").text, destination.css("a").attribute("href").text, destination.css(".masthead__sub_title").text)
+      Destinations::TravelDestinations.all_regions << self
+    end
+    self.scrape_value.each do |destination|
+      Destinations::TravelDestinations.new(destination.css("a.js-action-scroll-to span").text, destination.css("a").attribute("href").text, destination.css(".masthead__sub_title").text)
+      Destinations::TravelDestinations.all_value << self
+    end
   end
 
   def self.puts_countries

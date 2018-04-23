@@ -7,7 +7,8 @@ class Destinations::CLI
 
   def intro
     Destinations::TopList.scrape_list
-    puts "\nWelcome! Please select one of the lists above by number or keyword.\n\n"
+    Destinations::TopList.make_all_destinations
+    puts "\nWelcome! Please select one of the lists above by number.\n\n"
     puts "Type 'exit' to exit the program at anytime. Type 'main menu' to return to the list above at anytime."
   end
 
@@ -18,15 +19,15 @@ class Destinations::CLI
   end
 
   def main_menu_select
-      input = gets.chomp.downcase
+      input = gets.chomp
       list = nil
-    if input.to_i == 1 || input.include?("countries")
+    if input.to_i == 1
       Destinations::TravelDestinationsLists.puts_countries
-    elsif input.to_i == 2 || input.include?("cities")
+    elsif input.to_i == 2
       Destinations::TravelDestinationsLists.puts_cities
-    elsif input.to_i == 3 || input.include?("regions")
+    elsif input.to_i == 3
       Destinations::TravelDestinationsLists.puts_regions
-    elsif input.to_i == 4 || input.include?("value") || input.include?("best")
+    elsif input.to_i == 4
       Destinations::TravelDestinationsLists.puts_value
     elsif input == "main menu"
       self.main_menu
@@ -34,26 +35,39 @@ class Destinations::CLI
       abort("Bye!")
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
-    self.destination_more_info
+    self.destination_more_info(input.to_i)
   end
 
-  def destination_more_info
+  def destination_more_info(input.to_i)
     more_input = gets.chomp
+    destination = nil
     if more_input.to_i.between?(1,10)
-    Destinations::TravelDestinations.find_destination_from_list
-    puts "If you would like more information about this destination please enter 'yes'."
-      self.destination_link(input_url, more_input)
+      if input.to_i == 1
+        destination = Destinations::TravelDestinations.find_country_destination(more_input.to_i)
+        puts destination.summary
+      elsif input.to_i == 2
+        destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i).summary
+        puts destination.summary
+      elsif input.to_i == 3
+        destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i).summary
+        puts destination.summary
+      elsif input.to_i == 4
+        destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i).summary
+        puts destination.summary
+      end
+      puts "If you would like more information about this destination please enter 'yes'."
+        self.destination_link(destination)
     else
       self.exit_or_menu
     end
   end
 
 
-def destination_link(input_url, more_input)
+def destination_link(destination)
   answer = gets.chomp.downcase
   new_answer = nil
   if answer == 'yes'
-    Destinations::TravelDestinations.scrape_for_link(input_url, more_input)
+    destination.link_url
     self.exit_or_menu
   else
     until new_answer == "main menu" || answer == "exit"
