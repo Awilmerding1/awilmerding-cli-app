@@ -19,33 +19,28 @@ class Destinations::CLI
 
   def main_menu_select
       input = gets.chomp.downcase
-      # link = nil
+      list = nil
     if input.to_i == 1 || input.include?("countries")
-      Destinations::TravelDestinationsLists.scrape_top_countries
-      # link = "https://www.lonelyplanet.com/best-in-travel/countries"
+      Destinations::TravelDestinationsLists.puts_countries
     elsif input.to_i == 2 || input.include?("cities")
-      # Destinations::TravelDestinationsLists.scrape_top_cities
-      # link = "https://www.lonelyplanet.com/best-in-travel/cities"
+      Destinations::TravelDestinationsLists.puts_cities
     elsif input.to_i == 3 || input.include?("regions")
-      # Destinations::TravelDestinationsLists.scrape_top_regions
-      # link = "https://www.lonelyplanet.com/best-in-travel/regions"
+      Destinations::TravelDestinationsLists.puts_regions
     elsif input.to_i == 4 || input.include?("value") || input.include?("best")
-      # Destinations::TravelDestinationsLists.scrape_top_value
-      # link = "https://www.lonelyplanet.com/best-in-travel/value"
+      Destinations::TravelDestinationsLists.puts_value
     elsif input == "main menu"
       self.main_menu
     elsif input == "exit"
       abort("Bye!")
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
-    # self.destination_more_info(link)
-
+    self.destination_more_info
   end
 
-  def destination_more_info(input_url)
-    more_input = gets.chomp.downcase
+  def destination_more_info
+    more_input = gets.chomp
     if more_input.to_i.between?(1,10)
-    Destinations::TravelDestinations.scrape_for_description(input_url, more_input.to_i)
+    Destinations::TravelDestinations.find_destination_from_list
     puts "If you would like more information about this destination please enter 'yes'."
       self.destination_link(input_url, more_input)
     else
