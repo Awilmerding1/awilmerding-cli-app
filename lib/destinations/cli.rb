@@ -17,7 +17,7 @@ class Destinations::CLI
   end
 
   def main_menu
-    Destinations::TravelDestinations.scrape_list
+    Destinations::TravelDestinationsLists.scrape_list
     puts "\nPlease select a list."
     self.main_menu_select
   end
@@ -71,7 +71,7 @@ def destination_link(destination)
   answer = gets.chomp.downcase
   new_answer = nil
   if answer == 'yes'
-    destination.link_url
+      puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
     self.exit_or_menu
   else
     until new_answer == "main menu" || answer == "exit"
