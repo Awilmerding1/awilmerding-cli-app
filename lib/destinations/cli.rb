@@ -43,7 +43,7 @@ class Destinations::CLI
   end
 
   def destination_more_info(input)
-    more_input = gets.chomp
+    more_input = gets.chomp.downcase
     destination = nil
     if more_input.to_i.between?(1,10)
       if input.to_i == 1
@@ -61,6 +61,10 @@ class Destinations::CLI
       end
       puts "If you would like more information about this destination please enter 'yes'."
         self.destination_link(destination)
+    elsif more_input == "main menu"
+      self.main_menu
+    elsif more_input == "exit"
+      abort("Bye!")
     else
       self.exit_or_menu
     end
@@ -73,8 +77,12 @@ def destination_link(destination)
   if answer == 'yes'
       puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
     self.exit_or_menu
+  elsif answer == 'main menu'
+    self.main_menu
+  elsif answer == "exit"
+      abort("Bye!")
   else
-    until new_answer == "main menu" || answer == "exit"
+    until new_answer == "main menu" || new_answer == "exit"
     self.exit_or_menu
   end
 end
@@ -87,6 +95,8 @@ def exit_or_menu
     self.main_menu
   elsif new_answer == "exit"
       abort("Bye!")
+  else
+    self.exit_or_menu
   end
 end
 
