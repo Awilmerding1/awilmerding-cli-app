@@ -1,3 +1,4 @@
+require 'pry'
 class Destinations::CLI
 
   def call
@@ -6,8 +7,11 @@ class Destinations::CLI
   end
 
   def intro
-    Destinations::TopList.scrape_list
-    Destinations::TopList.make_all_destinations
+    Destinations::TravelDestinationsLists.scrape_list
+    Destinations::TravelDestinations.new_countries
+    Destinations::TravelDestinations.new_cities
+    Destinations::TravelDestinations.new_regions
+    Destinations::TravelDestinations.new_value
     puts "\nWelcome! Please select one of the lists above by number.\n\n"
     puts "Type 'exit' to exit the program at anytime. Type 'main menu' to return to the list above at anytime."
   end
@@ -38,7 +42,7 @@ class Destinations::CLI
     self.destination_more_info(input.to_i)
   end
 
-  def destination_more_info(input.to_i)
+  def destination_more_info(input)
     more_input = gets.chomp
     destination = nil
     if more_input.to_i.between?(1,10)
@@ -46,13 +50,13 @@ class Destinations::CLI
         destination = Destinations::TravelDestinations.find_country_destination(more_input.to_i)
         puts destination.summary
       elsif input.to_i == 2
-        destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i).summary
+        destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i)
         puts destination.summary
       elsif input.to_i == 3
-        destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i).summary
+        destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i)
         puts destination.summary
       elsif input.to_i == 4
-        destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i).summary
+        destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i)
         puts destination.summary
       end
       puts "If you would like more information about this destination please enter 'yes'."
