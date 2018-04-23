@@ -63,6 +63,12 @@ class Destinations::TravelDestinations
       @@all
   end
 
+  def self.put_all
+    self.all.each_with_index do |destination, index|
+      puts "#{index+1}. #{destination.name}"
+    end
+  end
+
   def self.all_countries
       @@all_countries
   end
