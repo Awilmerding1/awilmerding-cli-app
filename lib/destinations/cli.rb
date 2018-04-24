@@ -33,32 +33,38 @@ class Destinations::CLI
       Destinations::TravelDestinationsLists.puts_regions
     elsif input.to_i == 4
       Destinations::TravelDestinationsLists.puts_value
-  else
-    self.exit_or_menu
+    else
+      self.exit_or_menu
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
-    self.destination_more_info(input.to_i)
+    self.destination_more_info(input)
   end
 
   def destination_more_info(input)
     more_input = gets.chomp.downcase
     destination = nil
     if more_input.to_i.between?(1,10)
-      if input.to_i == 1
-        destination = Destinations::TravelDestinations.find_country_destination(more_input.to_i)
-        puts destination.summary
-      elsif input.to_i == 2
-        destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i)
-        puts destination.summary
-      elsif input.to_i == 3
-        destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i)
-        puts destination.summary
-      elsif input.to_i == 4
-        destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i)
-        puts destination.summary
-      end
+      destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
+      puts destination.summary
+      # if input.to_i == 1
+      #   destination = Destinations::TravelDestinations.find_country_destination(more_input.to_i)
+      #   puts destination.summary
+      # elsif input.to_i == 2
+      #   destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i)
+      #   puts destination.summary
+      # elsif input.to_i == 3
+      #   destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i)
+      #   puts destination.summary
+      # elsif input.to_i == 4
+      #   destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i)
+      #   puts destination.summary
+      # end
       puts "If you would like more information about this destination please enter 'more info'."
         self.destination_link(destination)
+    elsif more_input == "main menu"
+      self.main_menu
+    elsif more_input == "exit"
+      abort("Bye!")
     else
       self.exit_or_menu
     end
@@ -67,10 +73,13 @@ class Destinations::CLI
 
 def destination_link(destination)
   answer = gets.chomp.downcase
-  new_answer = nil
   if answer == 'more info'
       puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
     self.exit_or_menu
+  elsif answer == "main menu"
+    self.main_menu
+  elsif answer == "exit"
+    abort("Bye!")
   else
     self.exit_or_menu
 end
