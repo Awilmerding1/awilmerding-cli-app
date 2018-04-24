@@ -6,7 +6,7 @@ This Ruby Gem is a CLI application that produces information about the destinati
 
 ## Installation
 
-You can install this application by running gem install destinations .
+You can install this application by running `gem install destinations` .
 
 ## Usage
 
