@@ -46,21 +46,8 @@ class Destinations::CLI
     if more_input.to_i.between?(1,10)
       destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
       puts destination.summary
-      # if input.to_i == 1
-      #   destination = Destinations::TravelDestinations.find_country_destination(more_input.to_i)
-      #   puts destination.summary
-      # elsif input.to_i == 2
-      #   destination = Destinations::TravelDestinations.find_city_destination(more_input.to_i)
-      #   puts destination.summary
-      # elsif input.to_i == 3
-      #   destination = Destinations::TravelDestinations.find_region_destination(more_input.to_i)
-      #   puts destination.summary
-      # elsif input.to_i == 4
-      #   destination = Destinations::TravelDestinations.find_value_destination(more_input.to_i)
-      #   puts destination.summary
-      # end
       puts "If you would like more information about this destination please enter 'more info'."
-        self.destination_link(destination)
+      self.destination_link(destination)
     elsif more_input == "main menu"
       self.main_menu
     elsif more_input == "exit"
