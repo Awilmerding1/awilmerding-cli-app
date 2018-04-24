@@ -5,8 +5,8 @@ class Destinations::TravelDestinationsLists
   def self.scrape_list
     Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/")).css("a.js-page-navigation-spot span").each_with_index do |list, index|
       puts "#{index+1}. #{list.text}"
-      puts "5. List of All Destinations"
     end
+    puts "5. List of All Destinations"
   end
 
   def self.scrape_countries

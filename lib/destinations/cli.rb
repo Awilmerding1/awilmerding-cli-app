@@ -34,9 +34,9 @@ class Destinations::CLI
     elsif input.to_i == 4
       Destinations::TravelDestinationsLists.puts_value
     elsif input.to_i == 5
-      Destinations::TravelDestinationsLists.put_all
+      Destinations::TravelDestinations.put_all
     else
-      self.exit_or_menu
+      self.exit_or_menu(input)
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
     self.destination_more_info(input)
@@ -50,12 +50,13 @@ class Destinations::CLI
       puts destination.summary
       puts "If you would like more information about this destination please enter 'more info'."
       self.destination_link(destination)
-    elsif more_input == "main menu"
-      self.main_menu
-    elsif more_input == "exit"
-      abort("Bye!")
+    elsif more_input.to_i.between?(11,40)
+      destination = Destinations::TravelDestinations.all[more_input.to_i-1]
+      puts destination.summary
+      puts "If you would like more information about this destination please enter 'more info'."
+      self.destination_link(destination)
     else
-      self.exit_or_menu
+      self.exit_or_menu(more_input)
     end
   end
 
@@ -64,26 +65,23 @@ def destination_link(destination)
   answer = gets.chomp.downcase
   if answer == 'more info'
       puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
-    self.exit_or_menu
-  elsif answer == "main menu"
-    self.main_menu
-  elsif answer == "exit"
-    abort("Bye!")
+      puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
+      new_input = gets.chomp.downcase
+    self.exit_or_menu(new_input)
   else
-    self.exit_or_menu
+    self.exit_or_menu(answer)
 end
 end
 
-def exit_or_menu
-  puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
-  new_answer = gets.chomp.downcase
+def exit_or_menu(new_answer)
   if new_answer == "main menu"
     self.main_menu
   elsif new_answer == "exit"
       abort("Bye!")
   else
     puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
-    self.exit_or_menu
+      more_answer = gets.chomp.downcase
+    self.exit_or_menu(more_answer)
   end
 end
 
