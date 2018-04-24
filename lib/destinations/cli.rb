@@ -33,6 +33,8 @@ class Destinations::CLI
       Destinations::TravelDestinationsLists.puts_regions
     elsif input.to_i == 4
       Destinations::TravelDestinationsLists.puts_value
+    elsif input.to_i == 5
+      Destinations::TravelDestinationsLists.put_all
     else
       self.exit_or_menu
     end
