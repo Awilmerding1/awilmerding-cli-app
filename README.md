@@ -10,7 +10,7 @@ You can install this application by running `gem install destinations` .
 
 ## Usage
 
-Run `destinations` after installing the gem.
+Run `top-destinations` after installing the gem.
 
 ## Development
 
