@@ -101,8 +101,11 @@ def destination_link(destination)
     puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
     new_input = gets.chomp.downcase
     self.exit_or_menu(new_input)
-  else
+  elsif answer == "exit" || answer == "main menu"
     self.exit_or_menu(answer)
+  else
+    puts "Please enter 'more info', 'main menu' or 'exit'."
+    self.destination_link(destination)
   end
 end
 
