@@ -6,6 +6,9 @@ class Destinations::CLI
     main_menu_select
   end
 
+  # 1. scrape all the data
+  # 2. save all that data appropriately
+
   def intro
     Destinations::TravelDestinationsLists.scrape_list
     Destinations::TravelDestinations.new_countries
