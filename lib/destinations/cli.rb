@@ -6,12 +6,9 @@ class Destinations::CLI
     main_menu_select
   end
 
-  # 1. scrape all the data
-  # 2. save all that data appropriately
-
   def intro
     Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
-        puts "#{index+1}. #{list.text}"
+      puts "#{index+1}. #{list.text}"
     end
     puts "5. List of All Destinations"
     Destinations::TravelDestinations.new_countries
@@ -32,27 +29,27 @@ class Destinations::CLI
   end
 
   def main_menu_select
-      input = gets.chomp
-      list = nil
+    input = gets.chomp
+    list = nil
     if input.to_i == 1
       Destinations::TravelDestinations.all_countries.each_with_index do |country, index|
-          puts "#{index+1}. #{country.name}"
+        puts "#{index+1}. #{country.name}"
       end
     elsif input.to_i == 2
       Destinations::TravelDestinations.all_cities.each_with_index do |city, index|
-          puts "#{index+1}. #{city.name}"
+        puts "#{index+1}. #{city.name}"
       end
     elsif input.to_i == 3
       Destinations::TravelDestinations.all_regions.each_with_index do |region, index|
-          puts "#{index+1}. #{region.name}"
+        puts "#{index+1}. #{region.name}"
       end
     elsif input.to_i == 4
       Destinations::TravelDestinations.all_value.each_with_index do |value, index|
-          puts "#{index+1}. #{value.name}"
+        puts "#{index+1}. #{value.name}"
       end
     elsif input.to_i == 5
       Destinations::TravelDestinations.all.each_with_index do |destination, index|
-          puts "#{index+1}. #{destination.name}"
+        puts "#{index+1}. #{destination.name}"
       end
     elsif input.downcase == "exit" || input.downcase == "main menu"
       self.exit_or_menu(input)
@@ -90,7 +87,7 @@ class Destinations::CLI
       else
         puts "Please enter a valid number, 'main menu' or 'exit'."
         self.destination_more_info(input)
-       end
+      end
     else
       self.exit_or_menu(more_input)
     end
@@ -100,23 +97,23 @@ class Destinations::CLI
 def destination_link(destination)
   answer = gets.chomp.downcase
   if answer == 'more info'
-      puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
-      puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
-      new_input = gets.chomp.downcase
+    puts "\nPlease visit #{destination.link_url} for more information on #{destination.name}.\n\n"
+    puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
+    new_input = gets.chomp.downcase
     self.exit_or_menu(new_input)
   else
     self.exit_or_menu(answer)
-end
+  end
 end
 
 def exit_or_menu(new_answer)
   if new_answer == "main menu"
     self.main_menu
   elsif new_answer == "exit"
-      abort("Bye!")
+    abort("Bye!")
   else
     puts "To exit the program, enter 'exit'. To return to the main menu, enter 'main menu'."
-      more_answer = gets.chomp.downcase
+    more_answer = gets.chomp.downcase
     self.exit_or_menu(more_answer)
   end
 end

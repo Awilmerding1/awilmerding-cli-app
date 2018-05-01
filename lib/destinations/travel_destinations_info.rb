@@ -66,7 +66,7 @@ class Destinations::TravelDestinations
       new_value.destination_type = "value"
       self.all << new_value
     end
-   end
+  end
 
    def self.all_value
      self.all.select {|destination| destination.destination_type == "value"}
@@ -74,7 +74,7 @@ class Destinations::TravelDestinations
 
 
   def self.all
-      @@all
+    @@all
   end
 
 
