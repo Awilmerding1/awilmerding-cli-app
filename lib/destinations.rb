@@ -3,8 +3,8 @@ require 'pry'
 
 require_relative "./destinations/version"
 require_relative './destinations/cli'
-require_relative './destinations/travel_destinations'
-require_relative './destinations/travel_destinations_info'
+require_relative './destinations/travel_destination_scraper'
+require_relative './destinations/travel_destination'
 
 module Destinations
 

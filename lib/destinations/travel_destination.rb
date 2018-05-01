@@ -1,13 +1,13 @@
 require 'open-uri'
 require 'pry'
-class Destinations::TravelDestinations
+class Destinations::TravelDestination
 
   attr_accessor :name, :summary, :list_number, :link_url, :destination_type
 
   @@all = []
 
   def self.new_countries
-   Destinations::TravelDestinationsLists.scrape_countries.each do |country|
+   Destinations::TravelDestinationScraper.scrape_countries.each do |country|
      new_country = self.new
      new_country.name = country.css(".marketing-article__header h1").text.scan(/[a-zA-Z]+.*/).join
      new_country.link_url = country.css("a").attribute("href").text
@@ -24,7 +24,7 @@ class Destinations::TravelDestinations
 
 
   def self.new_cities
-    Destinations::TravelDestinationsLists.scrape_cities.each do |city|
+    Destinations::TravelDestinationScraper.scrape_cities.each do |city|
       new_city = self.new
       new_city.name = city.css(".marketing-article__header h1").text.scan(/[a-zA-Z]+.*/).join
       new_city.link_url = city.css("a").attribute("href").text
@@ -40,7 +40,7 @@ class Destinations::TravelDestinations
   end
 
   def self.new_regions
-    Destinations::TravelDestinationsLists.scrape_regions.each do |region|
+    Destinations::TravelDestinationScraper.scrape_regions.each do |region|
       new_region = self.new
       new_region.name = region.css(".marketing-article__header h1").text.scan(/[a-zA-Z]+.*/).join
       new_region.link_url = region.css("a").attribute("href").text
@@ -57,7 +57,7 @@ class Destinations::TravelDestinations
 
 
   def self.new_value
-    Destinations::TravelDestinationsLists.scrape_value.each do |value|
+    Destinations::TravelDestinationScraper.scrape_value.each do |value|
       new_value = self.new
       new_value.name = value.css(".marketing-article__header h1").text.scan(/[a-zA-Z]+.*/).join
       new_value.link_url = value.css("a").attribute("href").text

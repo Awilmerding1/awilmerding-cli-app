@@ -7,20 +7,20 @@ class Destinations::CLI
   end
 
   def intro
-    Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
+    Destinations::TravelDestinationScraper.scraped_list.each_with_index do |list, index|
       puts "#{index+1}. #{list.text}"
     end
     puts "5. List of All Destinations"
-    Destinations::TravelDestinations.new_countries
-    Destinations::TravelDestinations.new_cities
-    Destinations::TravelDestinations.new_regions
-    Destinations::TravelDestinations.new_value
+    Destinations::TravelDestination.new_countries
+    Destinations::TravelDestination.new_cities
+    Destinations::TravelDestination.new_regions
+    Destinations::TravelDestination.new_value
     puts "\nWelcome! Please select one of the lists above by number.\n\n"
     puts "Type 'exit' to exit the program at anytime. Type 'main menu' to return to the list above at anytime."
   end
 
   def main_menu
-    Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
+    Destinations::TravelDestinationScraper.scraped_list.each_with_index do |list, index|
       puts "#{index+1}. #{list.text}"
     end
     puts "5. List of All Destinations"
@@ -32,23 +32,23 @@ class Destinations::CLI
     input = gets.chomp
     list = nil
     if input.to_i == 1
-      Destinations::TravelDestinations.all_countries.each_with_index do |country, index|
+      Destinations::TravelDestination.all_countries.each_with_index do |country, index|
         puts "#{index+1}. #{country.name}"
       end
     elsif input.to_i == 2
-      Destinations::TravelDestinations.all_cities.each_with_index do |city, index|
+      Destinations::TravelDestination.all_cities.each_with_index do |city, index|
         puts "#{index+1}. #{city.name}"
       end
     elsif input.to_i == 3
-      Destinations::TravelDestinations.all_regions.each_with_index do |region, index|
+      Destinations::TravelDestination.all_regions.each_with_index do |region, index|
         puts "#{index+1}. #{region.name}"
       end
     elsif input.to_i == 4
-      Destinations::TravelDestinations.all_value.each_with_index do |value, index|
+      Destinations::TravelDestination.all_value.each_with_index do |value, index|
         puts "#{index+1}. #{value.name}"
       end
     elsif input.to_i == 5
-      Destinations::TravelDestinations.all.each_with_index do |destination, index|
+      Destinations::TravelDestination.all.each_with_index do |destination, index|
         puts "#{index+1}. #{destination.name}"
       end
     elsif input.downcase == "exit" || input.downcase == "main menu"
@@ -66,7 +66,7 @@ class Destinations::CLI
     destination = nil
     if input.to_i.between?(1,4)
       if more_input.to_i.between?(1,10)
-        destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
+        destination = Destinations::TravelDestination.find_input_to_index(input, more_input)
         puts destination.summary
         puts "If you would like more information about this destination please enter 'more info'."
         self.destination_link(destination)
@@ -78,7 +78,7 @@ class Destinations::CLI
       end
     elsif input.to_i == 5
       if more_input.to_i.between?(1,40)
-        destination = Destinations::TravelDestinations.all[more_input.to_i-1]
+        destination = Destinations::TravelDestination.all[more_input.to_i-1]
         puts destination.summary
         puts "If you would like more information about this destination please enter 'more info'."
         self.destination_link(destination)

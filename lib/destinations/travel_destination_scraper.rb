@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'pry'
-class Destinations::TravelDestinationsLists
+class Destinations::TravelDestinationScraper
 
   @@scraped_list = Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/")).css("a.js-page-navigation-spot span")
 
