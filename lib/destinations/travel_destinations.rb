@@ -9,6 +9,8 @@ class Destinations::TravelDestinationsLists
     puts "5. List of All Destinations"
   end
 
+
+
   def self.scrape_countries
     Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/countries")).css(".marketing-article")
   end
@@ -25,30 +27,5 @@ class Destinations::TravelDestinationsLists
     Nokogiri::HTML(open("https://www.lonelyplanet.com/best-in-travel/value")).css(".marketing-article")
   end
 
-
-  def self.puts_countries
-    self.scrape_countries.css(".marketing-article__header h1").each do |lists|
-      puts lists.text
-    end
-  end
-
-  def self.puts_cities
-    self.scrape_cities.css(".marketing-article__header h1").each do |lists|
-      puts lists.text
-    end
-  end
-
-  def self.puts_regions
-    self.scrape_regions.css(".marketing-article__header h1").each do |lists|
-    puts lists.text
-    end
-  end
-
-
-  def self.puts_value
-    self.scrape_value.css(".marketing-article__header h1").each do |lists|
-      puts lists.text
-    end
-  end
 
 end

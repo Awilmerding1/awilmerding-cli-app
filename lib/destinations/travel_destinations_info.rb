@@ -22,6 +22,7 @@ class Destinations::TravelDestinations
     self.all.select {|destination| destination.destination_type == "country"}
   end
 
+
   def self.new_cities
     Destinations::TravelDestinationsLists.scrape_cities.each do |city|
       new_city = self.new
@@ -85,18 +86,13 @@ class Destinations::TravelDestinations
 
   def self.find_input_to_index(input, more_input)
     if input.to_i == 1
-        self.all_countries[more_input.to_i-1]
-
+      self.all_countries[more_input.to_i-1]
     elsif input.to_i == 2
-        self.all_cities[more_input.to_i-1]
-
+      self.all_cities[more_input.to_i-1]
     elsif input.to_i == 3
-        self.all_regions[more_input.to_i-1]
-
+      self.all_regions[more_input.to_i-1]
     elsif input.to_i == 4
-
-        self.all_value[more_input.to_i-1]
-
+      self.all_value[more_input.to_i-1]
     elsif input.to_1 == 5
       self.all[more_input.to_i-1]
     end

@@ -29,13 +29,21 @@ class Destinations::CLI
       input = gets.chomp
       list = nil
     if input.to_i == 1
-      Destinations::TravelDestinationsLists.puts_countries
+      Destinations::TravelDestinations.all_countries.each_with_index do |country, index|
+          puts "#{index+1}. #{country.name}"
+      end
     elsif input.to_i == 2
-      Destinations::TravelDestinationsLists.puts_cities
+      Destinations::TravelDestinations.all_cites.each_with_index do |city, index|
+          puts "#{index+1}. #{city.name}"
+      end
     elsif input.to_i == 3
-      Destinations::TravelDestinationsLists.puts_regions
+      Destinations::TravelDestinations.all_regions.each_with_index do |region, index|
+          puts "#{index+1}. #{region.name}"
+      end
     elsif input.to_i == 4
-      Destinations::TravelDestinationsLists.puts_value
+      Destinations::TravelDestinations.all_value.each_with_index do |value, index|
+          puts "#{index+1}. #{value.name}"
+      end
     elsif input.to_i == 5
       Destinations::TravelDestinations.put_all
     else
