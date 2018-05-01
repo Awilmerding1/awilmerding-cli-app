@@ -104,7 +104,7 @@ def destination_link(destination)
   elsif answer == "exit" || answer == "main menu"
     self.exit_or_menu(answer)
   else
-    puts "Please enter 'more info', 'main menu' or 'exit'."
+    puts "Please enter 'more info' for more information about #{destination.name}. To return to the main menu enter 'main menu'. To exit the program enter 'exit'."
     self.destination_link(destination)
   end
 end
