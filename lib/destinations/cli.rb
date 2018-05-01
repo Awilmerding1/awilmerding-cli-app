@@ -48,16 +48,24 @@ class Destinations::CLI
   def destination_more_info(input)
     more_input = gets.chomp.downcase
     destination = nil
-    if more_input.to_i.between?(1,10)
+    if input.to_i.between?(1,4)
+      if more_input.to_i.between?(1,10)
       destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
       puts destination.summary
       puts "If you would like more information about this destination please enter 'more info'."
       self.destination_link(destination)
-    elsif more_input.to_i.between?(11,40)
+     else
+       self.exit_or_menu(more_input)
+      end
+    elsif input.to_i == 5
+      if more_input.to_i.between?(1,40)
       destination = Destinations::TravelDestinations.all[more_input.to_i-1]
       puts destination.summary
       puts "If you would like more information about this destination please enter 'more info'."
       self.destination_link(destination)
+      else
+        self.exit_or_menu(more_input)
+       end
     else
       self.exit_or_menu(more_input)
     end
@@ -87,6 +95,10 @@ def exit_or_menu(new_answer)
     self.exit_or_menu(more_answer)
   end
 end
+
+  def valid_input
+    puts "Please enter a number on the list."
+  end
 
 
 end
