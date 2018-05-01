@@ -10,7 +10,11 @@ class Destinations::CLI
   # 2. save all that data appropriately
 
   def intro
-    Destinations::TravelDestinationsLists.scrape_list
+    # Destinations::TravelDestinationsLists.scrape_list
+    Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
+        puts "#{index+1}. #{list.text}"
+      end
+      puts "5. List of All Destinations"
     Destinations::TravelDestinations.new_countries
     Destinations::TravelDestinations.new_cities
     Destinations::TravelDestinations.new_regions
@@ -20,7 +24,10 @@ class Destinations::CLI
   end
 
   def main_menu
-    Destinations::TravelDestinationsLists.scrape_list
+    Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
+        puts "#{index+1}. #{list.text}"
+      end
+    puts "5. List of All Destinations"
     puts "\nPlease select a list."
     self.main_menu_select
   end
@@ -33,7 +40,7 @@ class Destinations::CLI
           puts "#{index+1}. #{country.name}"
       end
     elsif input.to_i == 2
-      Destinations::TravelDestinations.all_cites.each_with_index do |city, index|
+      Destinations::TravelDestinations.all_cities.each_with_index do |city, index|
           puts "#{index+1}. #{city.name}"
       end
     elsif input.to_i == 3
@@ -45,7 +52,9 @@ class Destinations::CLI
           puts "#{index+1}. #{value.name}"
       end
     elsif input.to_i == 5
-      Destinations::TravelDestinations.put_all
+      Destinations::TravelDestinations.all.each_with_index do |destination, index|
+          puts "#{index+1}. #{destination.name}"
+      end
     else
       self.exit_or_menu(input)
     end
