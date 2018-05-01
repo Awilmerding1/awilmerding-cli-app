@@ -12,7 +12,7 @@ class Destinations::CLI
   def intro
     Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
         puts "#{index+1}. #{list.text}"
-      end
+    end
     puts "5. List of All Destinations"
     Destinations::TravelDestinations.new_countries
     Destinations::TravelDestinations.new_cities
@@ -54,8 +54,11 @@ class Destinations::CLI
       Destinations::TravelDestinations.all.each_with_index do |destination, index|
           puts "#{index+1}. #{destination.name}"
       end
-    else
+    elsif input.downcase == "exit" || input.downcase == "main menu"
       self.exit_or_menu(input)
+    else
+      puts "Please enter a valid number, 'main menu' or 'exit'."
+      self.main_menu_select
     end
     puts "\nIf you would like to read about one of these destinations, please enter it's number on the list.\n\n"
     self.destination_more_info(input)
@@ -66,21 +69,27 @@ class Destinations::CLI
     destination = nil
     if input.to_i.between?(1,4)
       if more_input.to_i.between?(1,10)
-      destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
-      puts destination.summary
-      puts "If you would like more information about this destination please enter 'more info'."
-      self.destination_link(destination)
-     else
-       self.exit_or_menu(more_input)
+        destination = Destinations::TravelDestinations.find_input_to_index(input, more_input)
+        puts destination.summary
+        puts "If you would like more information about this destination please enter 'more info'."
+        self.destination_link(destination)
+      elsif more_input.downcase == "exit" || more_input.downcase == "main menu"
+        self.exit_or_menu(more_input)
+      else
+        puts "Please enter a valid number, 'main menu' or 'exit'."
+        self.destination_more_info(input)
       end
     elsif input.to_i == 5
       if more_input.to_i.between?(1,40)
-      destination = Destinations::TravelDestinations.all[more_input.to_i-1]
-      puts destination.summary
-      puts "If you would like more information about this destination please enter 'more info'."
-      self.destination_link(destination)
-      else
+        destination = Destinations::TravelDestinations.all[more_input.to_i-1]
+        puts destination.summary
+        puts "If you would like more information about this destination please enter 'more info'."
+        self.destination_link(destination)
+      elsif more_input.downcase == "exit" || more_input.downcase == "main menu"
         self.exit_or_menu(more_input)
+      else
+        puts "Please enter a valid number, 'main menu' or 'exit'."
+        self.destination_more_info(input)
        end
     else
       self.exit_or_menu(more_input)
@@ -111,10 +120,6 @@ def exit_or_menu(new_answer)
     self.exit_or_menu(more_answer)
   end
 end
-
-  def valid_input
-    puts "Please enter a number on the list."
-  end
 
 
 end
