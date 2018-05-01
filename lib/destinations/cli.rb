@@ -10,11 +10,10 @@ class Destinations::CLI
   # 2. save all that data appropriately
 
   def intro
-    # Destinations::TravelDestinationsLists.scrape_list
     Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
         puts "#{index+1}. #{list.text}"
       end
-      puts "5. List of All Destinations"
+    puts "5. List of All Destinations"
     Destinations::TravelDestinations.new_countries
     Destinations::TravelDestinations.new_cities
     Destinations::TravelDestinations.new_regions
@@ -25,8 +24,8 @@ class Destinations::CLI
 
   def main_menu
     Destinations::TravelDestinationsLists.scraped_list.each_with_index do |list, index|
-        puts "#{index+1}. #{list.text}"
-      end
+      puts "#{index+1}. #{list.text}"
+    end
     puts "5. List of All Destinations"
     puts "\nPlease select a list."
     self.main_menu_select

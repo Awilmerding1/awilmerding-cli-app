@@ -77,12 +77,6 @@ class Destinations::TravelDestinations
       @@all
   end
 
-  def self.put_all
-    self.all.each_with_index do |destination, index|
-      puts "#{index+1}. #{destination.name}"
-    end
-  end
-
 
   def self.find_input_to_index(input, more_input)
     if input.to_i == 1
